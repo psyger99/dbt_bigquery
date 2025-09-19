@@ -6,6 +6,14 @@ Try running the following commands:
 - dbt run
 - dbt test
 
+### Change the keyfile of `profiles.yml` based on running OS server:
+
+#### For Windows
+keyfile: D:\Acc\demo_service_acc_rainer.json
+
+#### For WSL2/Linux
+keyfile: /mnt/d/Acc/demo_service_acc_rainer.json
+
 
 ### Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)

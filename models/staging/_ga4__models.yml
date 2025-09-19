@@ -1,0 +1,77 @@
+version: 2
+
+models:
+
+  - name: stg_ga4__events
+    description: Cleaned GA4 events for a single day (events_20210131).
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier from GA4."
+        data_tests:
+          - not_null
+      - name: event_date
+        description: "Parsed event date (DATE)."
+        data_tests:
+          - not_null
+      - name: event_timestamp
+        description: "Event timestamp from GA4 (int or timestamp depending on source)."
+        data_tests:
+          - not_null
+      - name: event_name
+        description: "GA4 event name (e.g., page_view, purchase)."
+      - name: event_bundle_sequence_id
+        description: "Bundle/sequence id within GA4 events."
+      - name: event_previous_timestamp
+        description: "Previous event timestamp for the same user (if available)."
+
+  - name: stg_ga4__sessions
+    description: GA4 session identifiers and engagement details.
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier for the session owner."
+        data_tests:
+          - not_null
+      - name: ga_session_id
+        description: "GA4 session identifier (extracted from event_params)."
+        data_tests:
+          - not_null
+      - name: ga_session_number
+        description: "Session sequence number for the user."
+      - name: engaged_session_event
+        description: "Flag indicating if this was an engaged session."
+
+  - name: stg_ga4__users
+    description: Extracts user attributes from GA4 event rows.
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier (can appear multiple times)."
+        data_tests:
+          - not_null
+      - name: user_first_touch_timestamp
+        description: "Timestamp of user's first touch (as reported in GA4 event fields)."
+      - name: user_country
+        description: "Country derived from geo fields."
+      - name: user_region
+        description: "Region derived from geo fields."
+      - name: user_city
+        description: "City derived from geo fields."
+      - name: user_os
+        description: "Operating system from user's device."
+      - name: user_device_category
+        description: "Device category (desktop, mobile, tablet)."
+      - name: user_device_browser
+        description: "Device browser (Chrome, Firefox, etc.)."
+
+  - name: stg_ga4__traffic_sources
+    description: Extracts traffic source attributes from GA4 events.
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier."
+        data_tests:
+          - not_null
+      - name: traffic_source
+        description: "Traffic source (e.g., google, newsletter)."
+      - name: traffic_medium
+        description: "Traffic medium (organic, cpc, referral)."
+      - name: traffic_campaign
+        description: "Campaign identifier from GA4."

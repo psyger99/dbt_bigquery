@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: ga4_obfuscated_sample_ecommerce
+    description: "Public GA4 sample dataset for Google Merchandise Store"
+    database: bigquery-public-data
+    schema: ga4_obfuscated_sample_ecommerce
+    tables:
+      - name: events_20210131
+        description: "Daily export table (partitioned by date)."
