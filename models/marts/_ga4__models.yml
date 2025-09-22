@@ -1,0 +1,112 @@
+version: 2
+
+models:
+  - name: int_events__pivoted
+    description: "Pivoted event-level metrics by user, including counts by event name and browser."
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier."
+        data_tests:
+          - not_null
+          - unique   # ensures no duplicate rows per user
+          - relationships:
+              arguments:
+                to: ref('stg_ga4__events')
+                field: user_pseudo_id   # ensures users exist in source events
+
+      - name: num_events
+        description: "Total distinct events per user."
+        data_tests:
+          - not_null
+
+      # Pivoted event columns
+      - name: num_add_payment_info_events
+        description: "Count of add_payment_info events for the user."
+        data_tests:
+          - not_null
+      - name: num_add_shipping_info_events
+        description: "Count of add_shipping_info events for the user."
+        data_tests:
+          - not_null
+      - name: num_add_to_cart_events
+        description: "Count of add_to_cart events for the user."
+        data_tests:
+          - not_null
+      - name: num_begin_checkout_events
+        description: "Count of begin_checkout events for the user."
+        data_tests:
+          - not_null
+      - name: num_click_events
+        description: "Count of click events for the user."
+        data_tests:
+          - not_null
+      - name: num_first_visit_events
+        description: "Count of first_visit events for the user."
+        data_tests:
+          - not_null
+      - name: num_page_view_events
+        description: "Count of page_view events for the user."
+        data_tests:
+          - not_null
+      - name: num_purchase_events
+        description: "Count of purchase events for the user."
+        data_tests:
+          - not_null
+      - name: num_scroll_events
+        description: "Count of scroll events for the user."
+        data_tests:
+          - not_null
+      - name: num_select_item_events
+        description: "Count of select_item events for the user."
+        data_tests:
+          - not_null
+      - name: num_select_promotion_events
+        description: "Count of select_promotion events for the user."
+        data_tests:
+          - not_null
+      - name: num_session_start_events
+        description: "Count of session_start events for the user."
+        data_tests:
+          - not_null
+      - name: num_user_engagement_events
+        description: "Count of user_engagement events for the user."
+        data_tests:
+          - not_null
+      - name: num_view_item_events
+        description: "Count of view_item events for the user."
+        data_tests:
+          - not_null
+      - name: num_view_promotion_events
+        description: "Count of view_promotion events for the user."
+        data_tests:
+          - not_null
+      - name: num_view_search_results_events
+        description: "Count of view_search_results events for the user."
+        data_tests:
+          - not_null
+
+      # Pivoted browser columns
+      - name: num_browser_chrome
+        description: "Count of events from Chrome browser."
+        data_tests:
+          - not_null
+      - name: num_browser_firefox
+        description: "Count of events from Firefox browser."
+        data_tests:
+          - not_null
+      - name: num_browser_safari
+        description: "Count of events from Safari browser."
+        data_tests:
+          - not_null
+      - name: num_browser_edge
+        description: "Count of events from Edge browser."
+        data_tests:
+          - not_null
+      - name: num_browser_android_webview
+        description: "Count of events from Android Webview."
+        data_tests:
+          - not_null
+      - name: num_browser_other
+        description: "Count of events from other browser."
+        data_tests:
+          - not_null
