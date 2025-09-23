@@ -110,3 +110,45 @@ models:
         description: "Count of events from other browser."
         data_tests:
           - not_null
+
+  - name: int_sessions__pivoted
+    description: "Pivoted event-level metrics at the session grain (user_pseudo_id + ga_session_id)."
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_ga4__sessions')
+                field: user_pseudo_id
+      - name: ga_session_id
+        description: "Session identifier."
+        data_tests:
+          - not_null
+      - name: num_events
+        description: "Total distinct events in this session."
+        data_tests:
+          - not_null
+
+  - name: customers
+    description: "Customer mart (one row per user) enriched with activity, traffic, geo, and device context."
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier (1 row per user)."
+        data_tests:
+          - not_null
+          - unique
+
+  - name: sessions
+    description: "Sessions mart (one row per session) enriched with activity, traffic, geo, and device context."
+    columns:
+      - name: user_pseudo_id
+        description: "Anonymous user identifier."
+        data_tests:
+          - not_null
+      - name: ga_session_id
+        description: "Session identifier (1 row per user/session)."
+        data_tests:
+          - not_null
+          - unique
