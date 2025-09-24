@@ -2,7 +2,7 @@
 
 This project builds analytics-ready models on top of **Google Analytics 4 (GA4)** BigQuery export data using **DBT (Data Build Tool)**. 
 
-**DBT** focuses on the transformation side of **ETL**  once it has already been loaded into the warehouse, turning raw source tables into clean, tested, and analytics-ready datasets through modular SQL models, version control, and automated testing.
+**DBT** focuses on the transformation side of **Extract, Transform, Load (ETL)**  once it has already been loaded into the warehouse, turning raw source tables into clean, tested, and analytics-ready datasets through modular SQL models, version control, and automated testing.
 
 The pipeline follows a **layered design** with **staging (stg)**, **intermediate (int) marts**, **macro helpers** for reusability, and **core data marts (fct/dim)** for downstream analytics.
 
@@ -44,13 +44,14 @@ The pipeline follows a **layered design** with **staging (stg)**, **intermediate
 - Intentional uniqueness `data_test` failure (e.g. in customers → signals real-world grain complexity).
   - Reason: a single user can have **multiple traffic sources**, leading to >1 row per user.  
 - Sessions + Customers marts provide ready-to-use models for segmentation, attribution, and lifetime analysis.
+- Columns were annotated with `-- fct` (fact/metrics) and `--dim` (dimensions/context) to make the role of each attribute clear in downstream analytics.
 
 ---
 
 ## 📜 Requirements
 
-- python
-- dbt-bigquery adapter installed using `pip install`
+- python >= 3.10
+- dbt-bigquery >= 1.10.0  
 - Access to a GA4 BigQuery export dataset
 - Access to Git
 
@@ -98,8 +99,9 @@ The pipeline follows a **layered design** with **staging (stg)**, **intermediate
 
 ---
 
-## 🛠️ Simple dbt Project Workflow Tips
+## 🛠️ Simple dbt Project Workflow Tips (from scratch)
 
+0. Ensure that you meet all the **Requirements**, has python virtual environment `(.venv)`, and `dbt-bigquery` adapter installed using `pip install`.
 1. Execute `dbt --version` in the terminal.
 2. Initialize a dbt project using the command `dbt init <project_name>`.
 3. Modify the following connection and project configurations inside:
@@ -114,7 +116,7 @@ The pipeline follows a **layered design** with **staging (stg)**, **intermediate
 8. If the compilation satisfy the desired outcome, proceed to execute `dbt run --select <model>`.
 9. Check your database in BigQuery if it reflects successfully.
 10. Add `data_tests` in your schema or `tests` in tests-path directory. To learn more about testing, proceed here:
-    - [data_tests 🔗](https://docs.getdbt.com/docs/build/data-tests)
+    - [🔗 data_tests](https://docs.getdbt.com/docs/build/data-tests)
 11. Execute the following command based on type of testing:
     - `dbt test` - Run Data and Unit Test
     - `dbt test --select <model>,test_type:data` - Run only data tests
@@ -122,13 +124,24 @@ The pipeline follows a **layered design** with **staging (stg)**, **intermediate
 12. Create the intermediate and core data models with schema configuration.
 13. Run the test for those model(s).
 14. (Optional) Executing the command `dbt build` will run the seeds, models, tests, and snapshots (if you have any) in the correct dependency order, handling the full lifecycle of dbt resources.
+15. Execute `dbt docs generate && dbt docs serve` to generate fresh documentation for your dbt project and then starts a local web server to display it in your browser.
 
 ---
 
-## To learn more about dbt
+## 🧠 To learn more about dbt
 - Check this out: 
-    - [dbt introduction 🔗](https://docs.getdbt.com/docs/introduction)
-    - [dbt best practices 🔗](https://docs.getdbt.com/best-practices)
+    - [🔗 dbt introduction](https://docs.getdbt.com/docs/introduction)
+    - [🔗 dbt best practices](https://docs.getdbt.com/best-practices)
+
+---
+
+## 👤 About the Author
+
+This project was created by `Rainer Alano`, a Petroleum Engineer turned Data professional with skills in Python, PostgreSQL, SSIS/SSMS, Airflow, dbt, and BigQuery.  
+- 📊 Focused on analytics engineering, ETL pipelines, and cloud data warehousing  
+- 🔗 [LinkedIn](https://www.linkedin.com/in/rainer-a1ano) | [GitHub](https://github.com/psyger99)
+- 🤝 Open for collaboration and contributions
+
 
 ---
 
