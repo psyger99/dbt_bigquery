@@ -12,7 +12,7 @@ The pipeline follows a **layered design** with **staging (stg)**, **intermediate
 
 ### 1. **Staging Layer (`staging/`)**
 - Cleans and standardizes raw GA4 export tables.
-- Defines **sources** (`_ga4__sources.yml`) and applies **naming conventions** for consistency.
+- Defines **sources** (`_ga4__sources.yml`), **models** (`_ga4__models.yml`) and applies **naming conventions** following the best-practices for consistency.
 - Example:
   - `stg_ga4__events` → flattened events
   - `stg_ga4__sessions` → sessionized activity
@@ -23,8 +23,8 @@ The pipeline follows a **layered design** with **staging (stg)**, **intermediate
 - Models:
   - `int_events__pivoted` → **event-level**, pivoted counts by event name and browser
   - `int_sessions__pivoted` → **session-level**, enriched with engagement and traffic info
-  - `customers` → **user data mart**, aggregates user activity across events, sessions, and traffic
-  - `sessions` → **session data mart**, user + traffic + geo + device context
+  - `customers` → **user-level data mart**, aggregates user activity across events, sessions, and traffic
+  - `sessions` → **session-level data mart**, user + traffic + geo + device context
 ### 3. **Macros (`macros/`)**
 - `pivot_helpers.sql` → DRY helper for pivoting event counts  
   (avoids repeating long `CASE WHEN` or `COUNTIF` expressions across marts).
