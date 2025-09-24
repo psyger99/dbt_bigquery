@@ -24,7 +24,7 @@ traffic as (
 select
     e.user_pseudo_id,
 
-    -- activity metrics
+    -- fct
     e.num_events,
     e.num_add_payment_info_events,
     e.num_add_shipping_info_events,
@@ -42,17 +42,13 @@ select
     e.num_view_promotion_events,
     e.num_view_search_results_events,
 
-    -- traffic
+    -- dim
     t.traffic_source,
     t.traffic_medium,
     t.traffic_campaign,
-
-    -- geography
     u.user_country,
     u.user_region,
     u.user_city,
-
-    -- device
     u.user_os,
     u.user_device_browser,
     u.user_device_category

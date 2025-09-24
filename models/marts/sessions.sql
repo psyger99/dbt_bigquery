@@ -25,7 +25,7 @@ select
     s.user_pseudo_id,
     s.ga_session_id,
 
-    -- activity metrics
+    -- fct
     s.num_events,
     s.num_add_payment_info_events,
     s.num_add_shipping_info_events,
@@ -43,17 +43,13 @@ select
     s.num_view_promotion_events,
     s.num_view_search_results_events,
 
-    -- traffic
+    -- dim
     t.traffic_source,
     t.traffic_medium,
     t.traffic_campaign,
-
-    -- geography
     u.user_country,
     u.user_region,
     u.user_city,
-
-    -- device
     u.user_os,
     u.user_device_browser,
     u.user_device_category
